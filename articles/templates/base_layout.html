@@ -10,12 +10,18 @@
         <header class="wrapper">
             <nav>
                 <ul>
-                    <li>
-                        <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                        <li><a class="highlight" href="{% url 'articles:create' %}">Create Article</a></li>
+                    {% else %}
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        <li><a href="{% url 'accounts:signup' %}">Sign up</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
